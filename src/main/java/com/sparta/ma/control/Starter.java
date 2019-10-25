@@ -10,6 +10,6 @@ public class Starter
     {
         EmployeeManager reader = new EmployeeManager();
 
-        reader.readEmployeeCsV();
+
     }
 }
