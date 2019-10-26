@@ -56,17 +56,40 @@ public class Employee {
     }
 
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setNamePrefix(String namePrefix) {
+        this.namePrefix = namePrefix;
+    }
+
+    public void setLastNamne(String lastNamne) {
+        this.lastNamne = lastNamne;
+    }
+
+    public void setMiddleIntial(char middleIntial) {
+        this.middleIntial = middleIntial;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 
     public char getGender() {
         return gender;
     }
 
 
-    private String dateFormater(Date DOB){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate= formatter.format(DOB);
-        return strDate;
-    }
+
 
 
 }
