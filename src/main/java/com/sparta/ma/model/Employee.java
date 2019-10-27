@@ -20,7 +20,7 @@ public class Employee {
         this.employeeID = employeeID;
         this.DOB = DOB;
         this.dateOfJoining = dateOfJoining;
-        //intialise everything else in the constructor
+        //initialise everything else in the constructor
     }
 
     public int getSalary() {

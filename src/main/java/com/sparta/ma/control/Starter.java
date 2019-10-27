@@ -1,9 +1,11 @@
 package com.sparta.ma.control;
 
+import com.sparta.ma.model.Employee;
 import com.sparta.ma.model.EmployeeManager;
 
-import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.jar.Attributes;
 
 /**
  * Hello world!
@@ -13,9 +15,13 @@ public class Starter
 {
     public static void main( String[] args )
     {
-        LocalDate localDate =  LocalDate.of(1997,2,1);
-        EmployeeManager reader = new EmployeeManager(1,localDate,localDate);
+        List<Employee> tester = new ArrayList<>();
+        EmployeeManager testerCreateEmployee =  new EmployeeManager();
+     tester = testerCreateEmployee.readEmployeeCsV("resources/EmployeeRecords.csv");
 
+     for(Employee person: tester){
+         System.out.println(person);
+     }
 
 
     }
