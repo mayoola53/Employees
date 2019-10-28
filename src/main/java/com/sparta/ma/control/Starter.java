@@ -3,6 +3,7 @@ package com.sparta.ma.control;
 import com.sparta.ma.model.Employee;
 import com.sparta.ma.model.EmployeeReader;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,9 +16,10 @@ public class Starter
 
         EmployeeReader testerCreateEmployee = new EmployeeReader();
         testerCreateEmployee.readEmployeeCsV("resources/EmployeeRecords.csv");
-        List<Employee> printEmployee =  testerCreateEmployee.getEmployeeList();
-        for(Employee employee: printEmployee){
-            System.out.println(employee);
-        }
+        List<Employee> printEmployee = testerCreateEmployee.getEmployeeList();
+
+
+
+
     }
 }
