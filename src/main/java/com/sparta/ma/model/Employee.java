@@ -10,17 +10,35 @@ public class Employee {
     private String namePrefix;
     private String lastNamne;
     private final LocalDate DOB;
-    private char middleIntial;
+    private String middleIntial;
     private String email;
     private final LocalDate dateOfJoining;
-    private char gender;
+    private String gender;
     private int salary;
 
-    public Employee(int employeeID, LocalDate DOB, LocalDate dateOfJoining) {
+    public Employee(int employeeID, String namePrefix, String firstName,String middleIntial,String lastNamne,String gender,String email,LocalDate DOB, LocalDate dateOfJoining,int salary ) {
         this.employeeID = employeeID;
+        this.firstName = firstName;
+        this.namePrefix = namePrefix;
+        this.lastNamne = lastNamne;
         this.DOB = DOB;
+        this.middleIntial = middleIntial;
+        this.email = email;
         this.dateOfJoining = dateOfJoining;
-        //initialise everything else in the constructor
+        this.gender = gender;
+        this.salary = salary;
+    }
+
+    public int getEmployeeID() {
+        return employeeID;
+    }
+
+    public LocalDate getDOB() {
+        return DOB;
+    }
+
+    public LocalDate getDateOfJoining() {
+        return dateOfJoining;
     }
 
     public int getSalary() {
@@ -47,7 +65,7 @@ public class Employee {
 
 
 
-    public char getMiddleIntial() {
+    public String getMiddleIntial() {
         return middleIntial;
     }
 
@@ -56,35 +74,8 @@ public class Employee {
     }
 
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public void setNamePrefix(String namePrefix) {
-        this.namePrefix = namePrefix;
-    }
-
-    public void setLastNamne(String lastNamne) {
-        this.lastNamne = lastNamne;
-    }
-
-    public void setMiddleIntial(char middleIntial) {
-        this.middleIntial = middleIntial;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setGender(char gender) {
-        this.gender = gender;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 

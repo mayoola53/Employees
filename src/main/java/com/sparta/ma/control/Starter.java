@@ -1,11 +1,9 @@
 package com.sparta.ma.control;
 
 import com.sparta.ma.model.Employee;
-import com.sparta.ma.model.EmployeeManager;
+import com.sparta.ma.model.EmployeeReader;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Attributes;
 
 /**
  * Hello world!
@@ -13,16 +11,13 @@ import java.util.jar.Attributes;
  */
 public class Starter
 {
-    public static void main( String[] args )
-    {
-        List<Employee> tester = new ArrayList<>();
-        EmployeeManager testerCreateEmployee =  new EmployeeManager();
-     tester = testerCreateEmployee.readEmployeeCsV("resources/EmployeeRecords.csv");
+    public static void main( String[] args ) {
 
-     for(Employee person: tester){
-         System.out.println(person);
-     }
-
-
+        EmployeeReader testerCreateEmployee = new EmployeeReader();
+        testerCreateEmployee.readEmployeeCsV("resources/EmployeeRecords.csv");
+        List<Employee> printEmployee =  testerCreateEmployee.getEmployeeList();
+        for(Employee employee: printEmployee){
+            System.out.println(employee);
+        }
     }
 }
