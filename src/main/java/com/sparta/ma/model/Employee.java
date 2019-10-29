@@ -16,7 +16,16 @@ public class Employee {
     private String gender;
     private int salary;
 
-    public Employee(int employeeID, String namePrefix, String firstName,String middleIntial,String lastNamne,String gender,String email,LocalDate DOB, LocalDate dateOfJoining,int salary ) {
+    @Override
+    public String toString() {
+        //return "Emp ID " + employeeID + " " + "name prefix " + namePrefix + " " + "First name " + firstName + " "+ "Middle intail"  + middleIntial + " " + "Last name " + lastNamne + " " + "gender" + " " + "Email" + email + " " + "Date of birth" + DOB +
+        String nl = System.lineSeparator();
+
+        return employeeID + nl+namePrefix +nl +firstName +nl +middleIntial +nl +lastNamne +nl +gender +nl+ email +nl +DOB +nl+dateOfJoining +nl+ salary;
+
+    }
+
+    public Employee(int employeeID, String namePrefix, String firstName, String middleIntial, String lastNamne, String gender, String email, LocalDate DOB, LocalDate dateOfJoining, int salary ) {
         this.employeeID = employeeID;
         this.firstName = firstName;
         this.namePrefix = namePrefix;

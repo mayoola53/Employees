@@ -1,16 +1,12 @@
 package com.sparta.ma.model;
 
-import com.sparta.ma.model.Employee;
-
-import javax.management.Attribute;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class EmployeeReader {
@@ -32,12 +28,11 @@ public class EmployeeReader {
             bufferedReader.readLine(); // consume first line and ignore
             line = bufferedReader.readLine();
             while((line = bufferedReader.readLine()) !=null){
-                if(employee != null) {
                     String[] fields = line.split(csvSplitBy);
                     employee = createEmployee(fields);
                     employeeList.add(employee);
-                }
             }
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File Not Find");
         } catch (IOException e) {
@@ -49,12 +44,26 @@ public class EmployeeReader {
     private Employee createEmployee( String[] fields ){
         return new Employee(Integer.parseInt(fields[0]),fields[1],fields[2],fields[3],fields[4],fields[5],fields[6],dateFormater(fields[7]),dateFormater(fields[8]),Integer.parseInt(fields[9]));
     }
-
+///helper class
     private LocalDate dateFormater(String localDate){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate= formatter.format(localDate);
-        LocalDate localDate1 = LocalDate.parse(strDate);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+      LocalDate localDate1 = LocalDate.parse(localDate,formatter);
         return localDate1;
+    }
+
+   public String printEmployees(){
+        String output = "";
+        String newLine = System.lineSeparator();
+
+        for (Employee List : employeeList){
+            output = output + List.toString();
+            if(List != employeeList.get(employeeList.size()-1)){
+                output = "" + output + newLine;
+            }
+
+        }
+
+        return output;
     }
 
 

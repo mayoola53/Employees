@@ -17,6 +17,7 @@ public class Starter
         EmployeeReader testerCreateEmployee = new EmployeeReader();
         testerCreateEmployee.readEmployeeCsV("resources/EmployeeRecords.csv");
         List<Employee> printEmployee = testerCreateEmployee.getEmployeeList();
+        System.out.println(testerCreateEmployee.printEmployees());
 
 
 
