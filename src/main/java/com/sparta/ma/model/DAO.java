@@ -2,33 +2,15 @@ package com.sparta.ma.model;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
 
 public class DAO {
-    private final String QUERY = "select first_name,last_name from actor where actor_id = ?";
     private final String URL = "jdbc:mysql://localhost/Employee?user=root&password=mayowa123";
-
-
-    public void runSQLQuery(String id) {
+    String QUERY = "INSERT INTO employee_table values (?,?,?,?,?,?,?,?,?,?)";
+    public void readArrayListToDB(Map<String,Employee> employeeList) {
         try (Connection connection = DriverManager.getConnection(URL)) {
-            PreparedStatement statement = connection.prepareStatement(QUERY);
-            statement.setString(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-//                System.out.println("First_name is "+ resultSet.getString(1));
-//                System.out.println("Last_ name is "+ resultSet.getString(2));
-
-            }
-        } catch (SQLException e) {
-
-        }
-    }
-
-    public void readArrayListToDB(List<Employee> employeeList) {
-        String INSERTSTATEMENT = "INSERT INTO employee_table values (?,?,?,?,?,?,?,?,?,?)";
-
-        try (Connection connection = DriverManager.getConnection(URL)) {
-            for (Employee employee : employeeList) {
-                PreparedStatement statement = connection.prepareStatement(INSERTSTATEMENT);
+            for (Employee employee : employeeList.values()) {
+                PreparedStatement statement = connection.prepareStatement(QUERY);
                 statement.setInt(1,employee.getEmployeeID());
                 statement.setString(2, employee.getNamePrefix());
                 statement.setString(3, employee.getFirstName());
