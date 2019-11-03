@@ -11,20 +11,20 @@ import java.util.Map;
 
 public class EmployeeReader {
     private Employee employee;
-    private Map<String,Employee> employeeList = new HashMap<>();
+    private Map<String, Employee> employeeList = new HashMap<>();
 
-    public Map<String,Employee>  getEmployeeList() {
+    public Map<String, Employee> getEmployeeMap() {
         return employeeList;
     }
 //       public void readEmployeeCsVStream(String PATH){
-//           List<Employee> employeeListStream = getEmployeeList();
+//           Map<String,Employee> employeeListStream = getEmployeeList();
 //           String line = "";
 //        try {
 //            BufferedReader br = new BufferedReader(new FileReader(PATH));
 //            br.readLine();
 //            br.lines()
 //                    .map(employee2 -> employee2.split(","))
-//                    .forEach(employee2 -> employeeList.add(new Employee(employeeListStream.get(0))));
+//                    .forEach(employee2 -> employeeList.put(new Employee()));
 //
 //        } catch (FileNotFoundException e) {
 //            e.printStackTrace();
@@ -34,19 +34,41 @@ public class EmployeeReader {
 //
 //       }
 
-    public void readEmployeeCsV(String PATH){
+    public Map<String, Employee> getDuplicates(Map<String, Employee> employeeMapWithDuplicates) {
+        Map<String, Employee> listWithoutDuplicates = getEmployeeMap();
+        Map<String, Employee> duplicates = getEmployeeMap();
+        Map<String,Employee>  duplicatesHolder = new HashMap<>();
+
+        int i = 0;
+        for (Employee employeeFromOrginalList : getEmployeeMap().values())
+            for (Employee employeeFromCopy : duplicates.values()) {
+                if (employeeFromCopy.getEmployeeID() == employeeFromOrginalList.getEmployeeID()) {
+                    duplicates.put(String.valueOf(employeeFromOrginalList.getEmployeeID()), employeeFromOrginalList);
+                    duplicatesHolder.put(String.valueOf(employeeFromOrginalList.getEmployeeID()), employeeFromOrginalList);
+//                  listWithoutDuplicates.remove(String.valueOf(employeeFromOrginalList.getEmployeeID()),employeeFromOrginalList);
+                    i++;
+                }
+
+
+            }
+        return duplicatesHolder;
+    }
+
+
+    public void readEmployeeCsV(String PATH) {
         String line = "";
         String csvSplitBy = ",";
         Employee employee = null;
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH));
-            bufferedReader.readLine(); // consume first line and ignore
+//            bufferedReader.readLine(); // consume first line and ignore
+            //add if statement to check for first line looks like
             line = bufferedReader.readLine();
-            while((line = bufferedReader.readLine()) !=null){
-                    String[] fields = line.split(csvSplitBy);
-                    employee = createEmployee(fields);
-                    employeeList.put(fields[0],employee);
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] fields = line.split(csvSplitBy);
+                employee = createEmployee(fields);
+                employeeList.put(fields[0], employee);
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -57,23 +79,24 @@ public class EmployeeReader {
 
     }
 
-    private Employee createEmployee( String[] fields ){
-        return new Employee(Integer.parseInt(fields[0]),fields[1],fields[2],fields[3],fields[4],fields[5],fields[6],dateFormater(fields[7]),dateFormater(fields[8]),Integer.parseInt(fields[9]));
+    private Employee createEmployee(String[] fields) {
+        return new Employee(Integer.parseInt(fields[0]), fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], dateFormater(fields[7]), dateFormater(fields[8]), Integer.parseInt(fields[9]));
     }
-///helper class
-    private LocalDate dateFormater(String localDate){
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-      LocalDate localDate1 = LocalDate.parse(localDate,formatter);
+
+    ///helper class
+    private LocalDate dateFormater(String localDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate localDate1 = LocalDate.parse(localDate, formatter);
         return localDate1;
     }
 
-   public String printEmployees(){
+    public String printEmployees() {
         String output = "";
         String newLine = System.lineSeparator();
 
-        for (Employee List : employeeList.values()){
+        for (Employee List : employeeList.values()) {
             output = output + List.toString();
-            if(List != employeeList.get(employeeList.size()-1)){
+            if (List != employeeList.get(employeeList.size() - 1)) {
                 output = "" + output + newLine;
             }
 
@@ -81,7 +104,6 @@ public class EmployeeReader {
 
         return output;
     }
-
 
 
 }

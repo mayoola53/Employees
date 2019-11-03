@@ -1,16 +1,14 @@
 package com.sparta.ma.model;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Employee {
     private  int employeeID ;
     private String firstName;
     private String namePrefix;
-    private String lastNamne;
-    private  LocalDate DOB;
-    private String middleIntial;
+    private String lastName;
+    private  LocalDate dateOfBirth;
+    private String middleInitial;
     private String email;
     private LocalDate dateOfJoining;
     private String gender;
@@ -19,18 +17,18 @@ public class Employee {
     @Override
     public String toString() {
         String nl = System.lineSeparator();
-        return employeeID + nl+namePrefix +nl +firstName +nl +middleIntial +nl +lastNamne +nl +gender +nl+ email +nl +DOB +nl+dateOfJoining +nl+ salary;
+        return employeeID + nl+namePrefix +nl +firstName +nl + middleInitial +nl + lastName +nl +gender +nl+ email +nl + dateOfBirth +nl+dateOfJoining +nl+ salary;
 
     }
 
 //Contructor
-    public Employee(int employeeID, String namePrefix, String firstName, String middleIntial, String lastNamne, String gender, String email, LocalDate DOB, LocalDate dateOfJoining, int salary ) {
+    public Employee(int employeeID, String namePrefix, String firstName, String middleInitial, String lastName, String gender, String email, LocalDate dateOfBirth, LocalDate dateOfJoining, int salary ) {
         this.employeeID = employeeID;
         this.firstName = firstName;
         this.namePrefix = namePrefix;
-        this.lastNamne = lastNamne;
-        this.DOB = DOB;
-        this.middleIntial = middleIntial;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.middleInitial = middleInitial;
         this.email = email;
         this.dateOfJoining = dateOfJoining;
         this.gender = gender;
@@ -49,16 +47,16 @@ public class Employee {
         this.namePrefix = namePrefix;
     }
 
-    public void setLastNamne(String lastNamne) {
-        this.lastNamne = lastNamne;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setDOB(LocalDate DOB) {
-        this.DOB = DOB;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public void setMiddleIntial(String middleIntial) {
-        this.middleIntial = middleIntial;
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
     }
 
     public void setEmail(String email) {
@@ -81,8 +79,8 @@ public class Employee {
         return employeeID;
     }
 
-    public LocalDate getDOB() {
-        return DOB;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public LocalDate getDateOfJoining() {
@@ -107,14 +105,14 @@ public class Employee {
 
 
 
-    public String getLastNamne() {
-        return lastNamne;
+    public String getLastName() {
+        return lastName;
     }
 
 
 
-    public String getMiddleIntial() {
-        return middleIntial;
+    public String getMiddleInitial() {
+        return middleInitial;
     }
 
     public String getEmail() {
