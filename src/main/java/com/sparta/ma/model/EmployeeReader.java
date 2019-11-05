@@ -11,51 +11,25 @@ import java.util.Map;
 
 public class EmployeeReader {
     private Employee employee;
-    private Map<String, Employee> employeeList = new HashMap<>();
+    private Map<String, Employee> employeeMap = new HashMap<>();
+    private int count= 0;
 
+    public int getCount() {
+        return count;
+    }
+
+
+    Map<String, Employee> duplicates = new HashMap<>();
+    String PATH = "resources/EmployeeRecords.csv";
     public Map<String, Employee> getEmployeeMap() {
-        return employeeList;
-    }
-//       public void readEmployeeCsVStream(String PATH){
-//           Map<String,Employee> employeeListStream = getEmployeeList();
-//           String line = "";
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader(PATH));
-//            br.readLine();
-//            br.lines()
-//                    .map(employee2 -> employee2.split(","))
-//                    .forEach(employee2 -> employeeList.put(new Employee()));
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//       }
-
-    public Map<String, Employee> getDuplicates(Map<String, Employee> employeeMapWithDuplicates) {
-        Map<String, Employee> listWithoutDuplicates = getEmployeeMap();
-        Map<String, Employee> duplicates = getEmployeeMap();
-        Map<String,Employee>  duplicatesHolder = new HashMap<>();
-
-        int i = 0;
-        for (Employee employeeFromOrginalList : getEmployeeMap().values())
-            for (Employee employeeFromCopy : duplicates.values()) {
-                if (employeeFromCopy.getEmployeeID() == employeeFromOrginalList.getEmployeeID()) {
-                    duplicates.put(String.valueOf(employeeFromOrginalList.getEmployeeID()), employeeFromOrginalList);
-                    duplicatesHolder.put(String.valueOf(employeeFromOrginalList.getEmployeeID()), employeeFromOrginalList);
-//                  listWithoutDuplicates.remove(String.valueOf(employeeFromOrginalList.getEmployeeID()),employeeFromOrginalList);
-                    i++;
-                }
-
-
-            }
-        return duplicatesHolder;
+        return employeeMap;
     }
 
+    public Map<String, Employee> getDuplicates() {
+        return duplicates;
+    }
 
-    public void readEmployeeCsV(String PATH) {
+    public Map <String,Employee> readEmployeeCsV() {
         String line = "";
         String csvSplitBy = ",";
         Employee employee = null;
@@ -68,7 +42,13 @@ public class EmployeeReader {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] fields = line.split(csvSplitBy);
                 employee = createEmployee(fields);
-                employeeList.put(fields[0], employee);
+                if(employeeMap.containsKey(fields[0])) {
+                    duplicates.put(fields[0], employee);
+                }else {
+                    employeeMap.put(fields[0],employee);
+                    count++;
+                }
+
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -76,9 +56,8 @@ public class EmployeeReader {
         } catch (IOException e) {
 
         }
-
+       return employeeMap;
     }
-
     private Employee createEmployee(String[] fields) {
         return new Employee(Integer.parseInt(fields[0]), fields[1], fields[2], fields[3], fields[4], fields[5], fields[6], dateFormater(fields[7]), dateFormater(fields[8]), Integer.parseInt(fields[9]));
     }
@@ -89,14 +68,13 @@ public class EmployeeReader {
         LocalDate localDate1 = LocalDate.parse(localDate, formatter);
         return localDate1;
     }
-
     public String printEmployees() {
         String output = "";
         String newLine = System.lineSeparator();
 
-        for (Employee List : employeeList.values()) {
+        for (Employee List : employeeMap.values()) {
             output = output + List.toString();
-            if (List != employeeList.get(employeeList.size() - 1)) {
+            if (List != employeeMap.get(employeeMap.size() - 1)) {
                 output = "" + output + newLine;
             }
 
@@ -104,6 +82,9 @@ public class EmployeeReader {
 
         return output;
     }
+
+
+
 
 
 }
