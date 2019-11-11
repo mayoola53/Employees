@@ -35,12 +35,12 @@ public class DAO{
         Employee[] arraysOfEmp = employee.values().toArray(new Employee[employee.size()]);
         int count =  arraysOfEmp.length;
         Thread[] threadsArray  = new Thread[150];
-        int threadCount = threadsArray.length;
-        int factor = count/threadCount;
+        int noOfThreads = threadsArray.length;
+        int divisableBy = count/noOfThreads;
 
-        for(int i = 0 ; i<threadsArray.length; i++){
+        for(int i = 0 ; i<noOfThreads; i++){
             final int j = i;
-            Runnable runnable = ()-> readArrayListToDB(Arrays.copyOfRange(arraysOfEmp,factor*j,factor*(j+1)));
+            Runnable runnable = ()-> readArrayListToDB(Arrays.copyOfRange(arraysOfEmp,divisableBy*j,divisableBy*(j+1)));
             threadsArray[i] = new Thread(runnable);
             threadsArray[i].start();
         }

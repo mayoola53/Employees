@@ -20,7 +20,7 @@ public class EmployeeReader {
 
 
     Map<String, Employee> duplicates = new HashMap<>();
-    String PATH = "resources/EmployeeRecords.csv";
+    String PATH = "resources/EmployeeRecordsLarge.csv";
     public Map<String, Employee> getEmployeeMap() {
         return employeeMap;
     }
