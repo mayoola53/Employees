@@ -36,19 +36,30 @@ public class DAO{
         int count =  arraysOfEmp.length;
         Thread[] threadsArray  = new Thread[150];
         int noOfThreads = threadsArray.length;
-        int divisableBy = count/noOfThreads;
 
         for(int i = 0 ; i<noOfThreads; i++){
             final int j = i;
-            Runnable runnable = ()-> readArrayListToDB(Arrays.copyOfRange(arraysOfEmp,divisableBy*j,divisableBy*(j+1)));
+            Runnable runnable;
+            if((count *(i+1))/noOfThreads>count){
+               runnable = ()-> readArrayListToDB(Arrays.copyOfRange(arraysOfEmp,(count * j)/noOfThreads,(count*(j+1))/noOfThreads));
+            }
+            else{
+                runnable = ()-> readArrayListToDB(Arrays.copyOfRange(arraysOfEmp, (count*j)/noOfThreads,(count*(j+1))/noOfThreads));
+            }
             threadsArray[i] = new Thread(runnable);
+
             threadsArray[i].start();
         }
+        for(Thread thread : threadsArray){
+            try{
+                thread.join();
 
-
-
-
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
     }
+
     public void readArrayListToDB(Employee[] employees) {
         try (Connection connection = DriverManager.getConnection(URL)) {
             for (Employee employee : employees) {

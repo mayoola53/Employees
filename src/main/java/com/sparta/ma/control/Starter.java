@@ -19,9 +19,8 @@ public class Starter
         long start = System.nanoTime();
         dao.splitArrays(employeeReader.readEmployeeCsV());
         long end = System.nanoTime();
-
         double timeInSeconds = (double) (end-start)/1000000000;
-        System.out.println(timeInSeconds);
+        System.out.println("Total time: " + timeInSeconds);
 
     }
 
